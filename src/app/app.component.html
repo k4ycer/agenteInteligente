@@ -1,13 +1,39 @@
 <router-outlet></router-outlet>
-
-<div class="contenedorMundo">
-	<div class="fila" *ngFor="let fila of mundo.mapa">
-		<div class="elementoMundo" *ngFor="let elementoMundo of fila" attr.id="elemento_{{elementoMundo.id}}" [ngClass]="{'objeto': elementoMundo.tipoElemento == 1, 'salida': elementoMundo.tipoElemento == 3}">
-			<span *ngIf="elementoMundo.ocupado">1</span>
-			<span *ngIf="!elementoMundo.ocupado">0</span>
+<h1 class="text-center">Agente Inteligente</h1>
+<div class="container contenedorSimulador">
+	<div class="row">
+		<div class="col-4">
+			<label for="delay">Delay: </label>
+			<input type="number" [(ngModel)]="delaySimulacionUI">
+			<button (click)="iniciarBusqueda()">Iniciar</button>
 		</div>
 	</div>
-	<div id="agente">
-		A
+	<div class="row">
+		<div class="col-12 col-lg-9">
+			<div class="contenedorMundo">
+				<div class="fila" *ngFor="let fila of mundo.mapa">
+					<div class="elementoMundo" *ngFor="let elementoMundo of fila" attr.id="elemento_{{elementoMundo.id}}" [ngClass]="{'nulo': elementoMundo.tipoElemento == 0, 'objeto': elementoMundo.tipoElemento == 1, 'libre': elementoMundo.tipoElemento == 2, 'salida': elementoMundo.tipoElemento == 3}">
+						<span *ngIf="elementoMundo.ocupado">1</span>
+						<span *ngIf="!elementoMundo.ocupado">0</span>
+					</div>
+				</div>
+				<div id="agente">
+					A
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-lg-3">
+			<div class="contenedorResumen">
+				<h3>Resúmen:</h3>
+				<ul>
+					<li># de pasos: {{ metricaPasosUI }}</li>
+					<li>Camino:
+						<ol>
+							<li *ngFor="let posicion of posicionesRecorridasUI">Fila: {{ posicion.posicion.fila }}, Columna: {{ posicion.posicion.columna }}</li>
+						</ol>
+					</li>
+				</ul>
+			</div>			
+		</div>
 	</div>
 </div>

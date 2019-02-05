@@ -65,16 +65,23 @@ export class Agente{
         }
     }
 
-    public encontrarElementoTipo(tipoElemento: TipoElemento, delay?: number): ElementoMundo{
+    public encontrarElementoTipo(tipoElemento: TipoElemento, limitePasos: number ): ElementoMundo{
         let percepcion: Percepcion,
-            siguientePosicion: ElementoMundo;
+            siguientePosicion: ElementoMundo,
+            pasos: number;
 
-        while(this.posicionActual.tipoElemento != tipoElemento){
+        pasos = 0;
+
+        while(this.posicionActual.tipoElemento != tipoElemento && pasos < limitePasos){
             percepcion = this.sensar();
             siguientePosicion = this.calcularSiguientePosicion(percepcion);
             this.cambiarPosicion(siguientePosicion);
+            pasos++;
         }
 
-        return this.posicionActual;
+        if(this.posicionActual.tipoElemento == tipoElemento)
+            return this.posicionActual;
+        else
+            return null;
     }
 }

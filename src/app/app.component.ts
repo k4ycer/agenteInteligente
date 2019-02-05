@@ -16,6 +16,10 @@ export class AppComponent {
 
 	public mundo: Mundo;
 	public agente: Agente;
+	public delaySimulacionUI: number = 500;
+	public limitePasos: number = 1000;
+	public metricaPasosUI: number = 0;
+	public posicionesRecorridasUI: ElementoMundo[] = [];
 
 	ngOnInit(){
 		this.crearMundo();	
@@ -24,7 +28,7 @@ export class AppComponent {
 	
 	ngAfterViewInit(){
 		this.dibujarAgente(this.agente.posicionActual);
-		this.iniciarBusqueda();
+		// this.iniciarBusqueda();
 	}
 
 	crearMundo(){
@@ -33,23 +37,29 @@ export class AppComponent {
 	}
 
 	crearAgente(){
-		// this.agente = new Agente(this.mundo, this.mundo.mapa[9][3]);		
-		this.agente = new Agente(this.mundo, this.mundo.mapa[9][2]);
+		this.agente = new Agente(this.mundo, this.mundo.mapa[7][4]);		
+		// this.agente = new Agente(this.mundo, this.mundo.mapa[9][2]);
+		
 		this.agente.observablePosiciones.subscribe(historialPosiciones => {
 			if(historialPosiciones.length == 0){
 				return;
 			}
+
 			let posicion = historialPosiciones[historialPosiciones.length - 1];
-			((posicion)=> {
+			((posicion, i)=> {
 				setTimeout(() => {
-					this.dibujarAgente(posicion)
-				}, 1000);
-			})(posicion);
+					this.dibujarAgente(posicion);
+					this.metricaPasosUI++;
+					this.posicionesRecorridasUI.push(posicion);
+				}, this.delaySimulacionUI * i);
+			})(posicion, historialPosiciones.length - 1);
 		});
 	}
 
 	iniciarBusqueda(){		
-		this.agente.encontrarElementoTipo(TipoElemento.Salida, 1000)
+		if(!this.agente.encontrarElementoTipo(TipoElemento.Salida, this.limitePasos)){
+			alert("No se encontro el elemento despues de " + this.limitePasos + " pasos");
+		}
 	}
 
 	dibujarAgente(posicion: ElementoMundo){

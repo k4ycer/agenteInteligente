@@ -101,7 +101,7 @@ export const MapaDefault: ElementoMundo[][] = [
         new ElementoMundo(84, new Coordenada(5,4), true, TipoElemento.Objeto),
         new ElementoMundo(85, new Coordenada(5,5), true, TipoElemento.Objeto),
         new ElementoMundo(86, new Coordenada(5,6), false, TipoElemento.Libre),
-        new ElementoMundo(87, new Coordenada(5,7), false, TipoElemento.Salida),
+        new ElementoMundo(87, new Coordenada(5,7), false, TipoElemento.Libre),
         new ElementoMundo(88, new Coordenada(5,8), true, TipoElemento.Objeto),
         new ElementoMundo(89, new Coordenada(5,9), true, TipoElemento.Objeto),
         new ElementoMundo(90, new Coordenada(5,10), false, TipoElemento.Libre),
