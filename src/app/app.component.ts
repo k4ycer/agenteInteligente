@@ -37,7 +37,7 @@ export class AppComponent {
 	}
 
 	crearAgente(){
-		this.agente = new Agente(this.mundo, this.mundo.mapa[7][4]);		
+		this.agente = new Agente(this.mundo, this.mundo.mapa[9][4]);		
 		// this.agente = new Agente(this.mundo, this.mundo.mapa[9][2]);
 		
 		this.agente.observablePosiciones.subscribe(historialPosiciones => {
